@@ -1,0 +1,41 @@
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Análise Transações</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+</head>
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+        <ul class="container-fluid navbar-nav d-flex">
+            <li class="p-2 nav-item"><a id="importacoes" class="nav-link" th:href="@{/importar}">IMPORTAÇÕES</a></li>
+            <li class="p-2 nav-item"><a id="usuarios" class="nav-link" th:href="@{/usuarios}">USUÁRIO</a></li>
+            <li class="p-2 nav-item"><a id="analise"  class="nav-link" th:href="@{/analise}">ANÁLISE</a></li>
+            <li class="ms-auto p-2 nav-item" sec:authorize="! isAuthenticated()">
+                <a class="nav-link text-white" th:href="@{/cadastrar}" >CADASTRE-SE</a>
+            </li>
+            <li class="p-2 nav-item" sec:authorize="! isAuthenticated()">
+                <a class="nav-link text-white" th:href="@{/login}">LOGIN</a>
+            </li>
+            <li class="ms-auto p-2 nav-item" sec:authorize="isAuthenticated()">
+                <a onclick="document.querySelector('#form-logout').submit()" class="nav-link text-white" href="#">SAIR</a>
+                <form id="form-logout" th:action="@{/logout}" method="post"></form>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<script  th:fragment="script">
+        const pathname = window.location.pathname;
+        if(pathname.includes("importar")){
+            document.getElementById('importacoes').classList.add("active");
+        }
+        else if(pathname.includes("analise")){
+            document.getElementById('analise').classList.add("active");
+        }
+        else if(pathname.includes("usuarios")){
+            document.getElementById('usuarios').classList.add("active");
+        }
+</script>

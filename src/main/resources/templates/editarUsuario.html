@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-br">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <header th:replace="~{base :: header}"></header>
+    <div class="container">
+        <h1 class="mb-3 text-center">EDITAR USUÁRIO</h1>
+        <div class="border rounded">
+            <div class="p-2">
+                <form action="editar/salvar" method="post">
+                    <input th:value="${usuario.id}" name="id" type="hidden">
+                    <div class="m-2">
+                        <label for="nome" class="form-label">Nome </label>
+                        <input th:value="${usuario.nome}"  id="nome" name="nome" class="input-group-text" type="text" >
+                    </div>
+                    <div class="m-2">
+                        <label for="email" class="form-label">Email </label>
+                        <input th:value="${usuario.email}" id="email" name="email" class="input-group-text" type="text" >
+                    </div>
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<script th:replace="~{base :: script}"></script>
+</body>
+</html>

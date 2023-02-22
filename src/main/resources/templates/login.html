@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-br">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <header th:replace="~{base :: header}"></header>
+    <div class="container">
+        <h1 class="mb-3 text-center">SISTEMA DE ANALISE DE TRANSACÃO FINANCEIRAS</h1>
+        <form th:action="@{/login}" method="post">
+            <div th:if="${msgCadastro}" th:text="${msgCadastro}" class="alert alert-warning" role="alert" align="center"></div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="username">
+            </div>
+            <div class="mb-3">
+              <label for="senha" class="form-label">Senha</label>
+              <input name="password" type="password" class="form-control" id="senha">
+            </div>
+            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                Usuário ou senha inválido.
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</body>
+</html>

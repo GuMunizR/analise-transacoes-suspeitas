@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-br">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <header th:replace="~{base :: header}"></header>
+    <div class="container">
+        <h1 class="mb-3 text-center">DETALHES DA IMPORTAÇÃO</h1>
+        <div class="border rounded">
+            <div class="p-2">
+                <div class="m-2">
+                    <label for="data-importacao" class="form-label">Importado em </label>
+                    <input th:value="${#temporals.format(detalhar.dataImportacao, 'dd/MM/yyyy - HH:mm:ss')}" name="dataImportacao"
+                           id="data-importacao" class="input-group-text d-inline" type="text" disabled>
+                </div>
+                <div class="m-2">
+                    <label for="nome-usuario" class="form-label">Importado por </label>
+                    <input th:value="${detalhar.nomeUsuario}" name="usuarioImportacao" id="nome-usuario"
+                           class="input-group-text d-inline" type="text" disabled>
+                </div>
+                <div class="m-2">
+                    <label for="data-transacao" class="form-label">Data transações</label>
+                    <input th:value="${#temporals.format(detalhar.dataTransacao, 'dd/MM/yyyy')}" name="dataTransacao"
+                           id="data-transacao" class="input-group-text d-inline" type="text" disabled>
+                </div>
+            </div>
+        </div>
+        <h1 class="mt-5 mb-3 text-center">TRANSAÇÕES IMPORTADAS</h1>
+
+        <table class="table table-striped table-bordered border">
+            <thead>
+              <tr align="center">
+                <th scope="col" colspan="3">ORIGEM</th>
+                <th scope="col" colspan="3">DESTINO</th>
+                <th scope="col" class="pb-4" width="100px"rowspan="2" >VALOR</th>
+              </tr>
+              <tr align="center" >
+                <th scope="col"  width="250px" >BANCO</th>
+                <th scope="col" width="150px">CONTA</th>
+                <th scope="col" width="150px">AGÊNCIA</th>
+                <th scope="col" width="250px">BANCO</th>
+                <th scope="col" width="150px">CONTA</th>
+                <th scope="col" width="150px">AGENCIA</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr align="center" th:each="transacao : ${detalhar.listaTransacao}">
+                <td th:text="${transacao.bancoOrigem}" scope="row"></td>
+                <td th:text="${transacao.agenciaOrigem}"></td>
+                <td th:text="${transacao.contaOrigem}" ></td>
+                <td th:text="${transacao.bancoDestino}" scope="row"></td>
+                <td th:text="${transacao.agenciaDestino}"></td>
+                <td th:text="${transacao.contaDestino}"></td>
+                <td th:text="'R$ '  +${#numbers.formatDecimal(transacao.valorTransacao,1,'POINT',2,'COMMA')}">R$</td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+<script th:replace="~{base :: script}"></script>
+</body>
+</html>

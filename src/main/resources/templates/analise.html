@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-br">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <header th:replace="~{base :: header}"></header>
+    <div class="container">
+        <h1 class="mb-3 text-center">ANÁLISE DE TRANSAÇÕES SUSPEITAS</h1>
+        <form action="analise" method="post">
+            <div class="mb-3">
+                <label for="data" class="form-label">Selecione o mês para analisar as transações</label>
+                <input id="data" type="month" class="form-control" name="data"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Realizar análise</button>
+        </form>
+
+        <div th:if="${transacoesSuspeitas}" class="mt-4">
+            <h2 class="mb-3 text-center">TRANSAÇÕES SUSPEITAS</h2>
+            <table class="table table-striped table-bordered border">
+                <thead>
+                <tr align="center">
+                    <th scope="col" colspan="3">ORIGEM</th>
+                    <th scope="col" colspan="3">DESTINO</th>
+                    <th scope="col" class="pb-4" width="100px"rowspan="2" >VALOR</th>
+                </tr>
+                <tr align="center" >
+                    <th scope="col"  width="250px" >BANCO</th>
+                    <th scope="col" width="150px">CONTA</th>
+                    <th scope="col" width="150px">AGÊNCIA</th>
+                    <th scope="col" width="250px">BANCO</th>
+                    <th scope="col" width="150px">CONTA</th>
+                    <th scope="col" width="150px">AGENCIA</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                <tr align="center" th:each="transacao : ${transacoesSuspeitas}">
+                    <td th:text="${transacao.bancoOrigem}" scope="row"></td>
+                    <td th:text="${transacao.agenciaOrigem}"></td>
+                    <td th:text="${transacao.contaOrigem}" ></td>
+                    <td th:text="${transacao.bancoDestino}" scope="row"></td>
+                    <td th:text="${transacao.agenciaDestino}"></td>
+                    <td th:text="${transacao.contaDestino}"></td>
+                    <td th:text="'R$ '  +${#numbers.formatDecimal(transacao.valorTransacao,1,'POINT',2,'COMMA')}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${contaSuspeitas}" class="mt-4">
+            <h2 class="mb-3 text-center">CONTAS SUSPEITAS</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr align="center" >
+                    <th scope="col">BANCO</th>
+                    <th scope="col">AGÊNCIA</th>
+                    <th scope="col">CONTA</th>
+                    <th scope="col">VALOR MOVIMENTADO</th>
+                    <th scope="col">TIPO MOVIMENTAÇÃO</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                <tr align="center" th:each="conta : ${contaSuspeitas}" >
+                    <td th:text="${conta.banco}" scope="row"></td>
+                    <td th:text="${conta.agencia}" scope="row"></td>
+                    <td th:text="${conta.conta}" scope="row"></td>
+                    <td th:text="'R$ '  +${#numbers.formatDecimal(conta.valorMovimento,1,'POINT',2,'COMMA')}" scope="row"></td>
+                    <td th:text="${conta.tipoMovimento}" scope="row"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${agenciaSuspeitas}" class="mt-4">
+            <h2 class="mb-3 text-center">AGÊNCIAS SUSPEITAS</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr align="center" >
+                    <th scope="col">BANCO</th>
+                    <th scope="col">AGÊNCIA</th>
+                    <th scope="col">VALOR MOVIMENTADO</th>
+                    <th scope="col">TIPO MOVIMENTAÇÃO</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                <tr align="center" th:each="agencia : ${agenciaSuspeitas}" >
+                    <td th:text="${agencia.banco}" scope="row"></td>
+                    <td th:text="${agencia.agencia}" scope="row"></td>
+                    <td th:text="'R$ '  +${#numbers.formatDecimal(agencia.valorMovimento,1,'POINT',2,'COMMA')}" scope="row"></td>
+                    <td th:text="${agencia.tipoMovimento}" scope="row"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<script th:replace="~{base :: script}"></script>
+</body>
+</html>

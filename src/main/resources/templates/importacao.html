@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-br">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <header th:replace="~{base :: header}"></header>
+    <div class="container">
+        <h1 class="mb-3 text-center">IMPORTAR TRANSAÇÕES</h1>
+
+        <form action="importar/salvar" enctype="multipart/form-data" method="POST">
+            <div class="mb-3">
+                <input class="form-control" accept=".csv,.xml" type="file" name="arquivo"/>
+                <div class="form-text">Selecione o arquivo para realizar o upload</div>
+            </div>
+            <button class="btn btn-primary mt-3 mb-3" type="submit">Importar</button>
+            <div th:if="${param.scssMensage}" th:text="${param.scssMensage}"class="alert alert-success" align="center"></div>
+            <div th:if="${param.errMensage}" th:text="${param.errMensage}" class="alert alert-danger" align="center"></div>
+        </form>
+
+        <hr>
+
+        <h1 class="mt-5 mb-3 text-center">IMPORTAÇÕES REALIZADAS</h1>
+        <table class="table table-striped">
+            <thead>
+            <tr align="center" >
+                <th scope="col">DATA TRANSAÇÕES</th>
+                <th scope="col">DATA IMPORTAÇÃO</th>
+                <th scope="col">OPÇÕES</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr align="center" th:each="importacao : ${listImportacao}" >
+                <td scope="row" th:text="${#temporals.format(importacao.dataTransacao, 'dd/MM/yyyy')}" ></td>
+                <td th:text="${#temporals.format(importacao.dataImportacao, 'dd/MM/yyyy - HH:mm:ss')}"></td>
+                <td><a class="btn btn-info" th:href="@{importar/detalhar?(id=${importacao.id})}" >Detalhar</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<script th:replace="~{base :: script}"></script>
+</body>
+</html>

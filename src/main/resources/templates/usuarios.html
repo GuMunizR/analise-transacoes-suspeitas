@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-br">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <header th:replace="~{base :: header}"></header>
+    <div class="container">
+        <h1 class="mb-3 text-center">USUÁRIOS CADASTRADOS</h1>
+
+
+        <table class="table table-striped">
+            <thead>
+              <tr align="center">
+                <th scope="col">ID</th>
+                <th scope="col">NOME</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">OPÇÕES</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr align="center" th:each="usuario : ${listaUsuario}" >
+                <td scope="row" th:text="${usuario.id}"></td>
+                <td th:text="${usuario.nome}"></td>
+                <td th:text="${usuario.email}"></td>
+                <td><a class="btn btn-info pr-4" th:href="@{usuarios/editar?(id=${usuario.id})}">Editar</a> <a class="btn btn-danger pl-4" th:href="@{usuarios/excluir?(id=${usuario.id})}">Excluir</a></td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+<script th:replace="~{base :: script}"></script>
+</body>
+</html>

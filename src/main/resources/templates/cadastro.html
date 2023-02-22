@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-br">
+<head th:replace="~{base :: head}"></head>
+<body>
+<header th:replace="~{base :: header}"></header>
+    <div class="container">
+        <h1 class="mb-3 text-center">CADASTRAR NOVO USUÁRIO</h1>
+        <form action="cadastrar" method="POST">
+            <div class="p-3">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input id="nome" name="nome" type="text" class="form-control" placeholder="Digite seu nome">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" name="email" type="email" class="form-control" placeholder="Digite seu email">
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+        </form>
+        <div th:if="${msgError}" th:text="${msgError}"class="alert alert-danger text-center" ></div>
+    </div>
+</body>
+</html>
